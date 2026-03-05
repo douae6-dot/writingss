@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Douae's Novels</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --pink:#f72585;
+  --pink2:#ff4da6;
+  --pinklt:#ffb3d9;
+  --bg:#ffffff;
+  --bgsoft:#fff5fa;
+  --border:#ffd6eb;
+  --ink:#1a0a12;
+  --sub:#7a5068;
+  --muted:#c49ab5;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;}
+
+/* TOP BAR */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 40px;border-bottom:1px solid var(--border);
+  position:sticky;top:0;background:rgba(255,255,255,0.93);
+  backdrop-filter:blur(12px);z-index:50;
+}
+.logo{font-family:var(--serif);font-size:1.45rem;font-weight:900;font-style:italic;color:var(--ink);}
+.logo span{color:var(--pink);}
+.logo-sub{font-family:var(--sans);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+
+/* HERO */
+.hero{
+  text-align:center;padding:64px 24px 48px;
+  background:linear-gradient(180deg,#fff5fa 0%,#fff 100%);
+  border-bottom:1px solid var(--border);
+}
+.hero-tag{
+  display:inline-block;font-family:var(--sans);font-size:0.62rem;font-weight:500;
+  letter-spacing:0.22em;text-transform:uppercase;color:var(--pink);
+  background:rgba(247,37,133,0.07);border:1px solid rgba(247,37,133,0.18);
+  padding:5px 14px;border-radius:50px;margin-bottom:20px;
+}
+.hero h1{
+  font-family:var(--serif);font-size:clamp(2.6rem,8vw,5rem);font-weight:900;
+  color:var(--ink);line-height:1.05;margin-bottom:14px;letter-spacing:-0.02em;
+}
+.hero h1 em{font-style:italic;color:var(--pink);}
+.hero p{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--sub);max-width:400px;margin:0 auto;line-height:1.8;}
+
+/* SECTION */
+.section{max-width:1100px;margin:0 auto;padding:52px 32px 100px;}
+.section-head{display:flex;align-items:baseline;gap:10px;margin-bottom:32px;}
+.section-head h2{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--ink);}
+.section-head span{font-size:0.72rem;color:var(--muted);}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:20px;
+}
+
+/* CARD */
+.card{
+  background:var(--bg);border:1.5px solid var(--border);
+  border-radius:16px;overflow:hidden;cursor:pointer;
+  transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;
+  position:relative;
+}
+.card:hover{
+  transform:translateY(-5px);
+  border-color:var(--pinklt);
+  box-shadow:0 14px 44px rgba(247,37,133,0.13);
+}
+.card.empty{opacity:0.6;}
+.card.empty:hover{opacity:1;}
+
+.c-top{
+  height:120px;display:flex;align-items:center;
+  justify-content:center;font-size:2.2rem;
+  position:relative;overflow:hidden;
+}
+/* alternating soft gradients */
+.card:nth-child(6n+1) .c-top{background:linear-gradient(135deg,#ffe0f0,#ffc2e0);}
+.card:nth-child(6n+2) .c-top{background:linear-gradient(135deg,#ffd6eb,#ffb3d9);}
+.card:nth-child(6n+3) .c-top{background:linear-gradient(135deg,#ffe8f4,#ffd0ec);}
+.card:nth-child(6n+4) .c-top{background:linear-gradient(135deg,#ffc8e4,#ffaad6);}
+.card:nth-child(6n+5) .c-top{background:linear-gradient(135deg,#ffeaf6,#ffd8ef);}
+.card:nth-child(6n+6) .c-top{background:linear-gradient(135deg,#ffd2e8,#ffbcdf);}
+
+.c-num{
+  position:absolute;bottom:6px;right:12px;
+  font-family:var(--serif);font-size:3.5rem;font-weight:900;
+  color:rgba(247,37,133,0.12);line-height:1;user-select:none;
+}
+.c-body{padding:16px 16px 18px;}
+.c-genre{
+  font-family:var(--sans);font-size:0.57rem;font-weight:500;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);margin-bottom:5px;
+}
+.c-title{
+  font-family:var(--serif);font-size:1.08rem;font-weight:700;
+  color:var(--ink);line-height:1.25;margin-bottom:7px;
+}
+.c-desc{
+  font-family:var(--serif);font-style:italic;font-size:0.82rem;
+  color:var(--sub);line-height:1.65;margin-bottom:12px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.c-read{
+  font-family:var(--sans);font-size:0.65rem;font-weight:500;
+  color:var(--pink);letter-spacing:0.05em;
+  display:flex;align-items:center;gap:5px;transition:gap 0.2s;
+}
+.card:hover .c-read{gap:9px;}
+.c-empty-label{
+  font-family:var(--serif);font-style:italic;
+  font-size:0.78rem;color:var(--muted);
+}
+
+/* READER */
+.reader{display:none;position:fixed;inset:0;background:#fffaf c;z-index:100;overflow-y:auto;}
+.reader{display:none;position:fixed;inset:0;background:#fdfcfb;z-index:100;overflow-y:auto;}
+.reader.open{display:block;animation:up 0.4s ease;}
+@keyframes up{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+/* book-style layout */
+.reader-in{
+  max-width:680px;
+  margin:0 auto;
+  padding:52px 48px 120px;
+}
+
+/* back button */
+.r-back{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--sans);font-size:0.68rem;font-weight:500;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--muted);cursor:pointer;background:none;border:none;
+  margin-bottom:52px;transition:color 0.2s;
+}
+.r-back:hover{color:var(--pink);}
+.r-back::before{content:'←';font-size:1rem;}
+
+/* header block */
+.r-genre{
+  font-family:var(--sans);font-size:0.58rem;font-weight:500;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--pink);margin-bottom:10px;
+}
+.r-title{
+  font-family:var(--serif);font-size:clamp(2rem,5vw,2.8rem);
+  font-weight:900;color:var(--ink);line-height:1.1;margin-bottom:10px;
+}
+.r-desc{
+  font-family:var(--serif);font-style:italic;font-size:1rem;
+  color:var(--sub);margin-bottom:32px;line-height:1.75;
+}
+.r-rule{width:38px;height:3px;background:var(--pink);border-radius:2px;margin-bottom:44px;}
+
+/* THE ACTUAL BOOK TEXT */
+.r-body{
+  font-family:var(--serif);
+  font-size:1.13rem;
+  font-weight:400;
+  line-height:1.95;
+  color:#2a1520;
+  text-align:left;
+}
+.r-body p{
+  margin-bottom:1.5em;
+  text-indent:2em;
+}
+.r-body p:first-child{
+  text-indent:0;
+}
+.r-body p:first-child::first-letter{
+  font-size:3.8rem;
+  font-weight:900;
+  color:var(--pink);
+  float:left;
+  line-height:0.8;
+  margin-right:8px;
+  margin-top:6px;
+  font-family:var(--serif);
+}
+
+/* FOOTER */
+footer{text-align:center;padding:24px;border-top:1px solid var(--border);}
+footer p{font-family:var(--sans);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+
+@media(max-width:540px){
+  .topbar{padding:14px 18px;}
+  .section{padding:36px 16px 80px;}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;}
+}
+
+/* ── NAV LINKS ── */
+.nav-links{
+  display:flex;gap:24px;align-items:center;
+}
+.nav-links a{
+  font-family:var(--sans);font-size:0.72rem;font-weight:500;
+  letter-spacing:0.08em;color:var(--sub);text-decoration:none;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--pink);}
+
+/* ── WARNING BANNER ── */
+.warning-banner{
+  background:linear-gradient(135deg,#1a0a12,#2e0f1f);
+  color:#f5c6d8;
+  text-align:center;
+  padding:14px 24px;
+  font-family:var(--sans);
+  font-size:0.72rem;
+  letter-spacing:0.06em;
+  border-bottom:1px solid rgba(247,37,133,0.2);
+}
+.warning-banner strong{color:var(--pink);}
+
+/* ── GENRE GUIDE SECTION ── */
+.guide-section{
+  background:linear-gradient(180deg,#1a0a12 0%,#0f0509 100%);
+  padding:80px 32px;
+  color:#f5e6ee;
+}
+.guide-inner{
+  max-width:1000px;
+  margin:0 auto;
+}
+.guide-tag{
+  display:inline-block;
+  font-family:var(--sans);font-size:0.6rem;font-weight:500;
+  letter-spacing:0.24em;text-transform:uppercase;
+  color:var(--pink);background:rgba(247,37,133,0.1);
+  border:1px solid rgba(247,37,133,0.25);
+  padding:5px 14px;border-radius:50px;margin-bottom:20px;
+}
+.guide-title{
+  font-family:var(--serif);font-size:clamp(2rem,5vw,3rem);
+  font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;
+}
+.guide-title em{font-style:italic;color:var(--pink);}
+.guide-intro{
+  font-family:var(--serif);font-style:italic;font-size:1rem;
+  color:#c49ab5;line-height:1.8;max-width:580px;margin-bottom:56px;
+}
+.guide-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:20px;
+}
+.guide-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(247,37,133,0.15);
+  border-radius:16px;
+  padding:28px 26px 30px;
+  transition:border-color 0.25s,background 0.25s;
+}
+.guide-card:hover{
+  border-color:rgba(247,37,133,0.4);
+  background:rgba(247,37,133,0.06);
+}
+.guide-card-icon{font-size:2rem;margin-bottom:14px;display:block;}
+.guide-card-name{
+  font-family:var(--serif);font-size:1.15rem;font-weight:700;
+  color:#fff;margin-bottom:8px;
+}
+.guide-card-tag{
+  display:inline-block;
+  font-family:var(--sans);font-size:0.56rem;font-weight:500;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--pink);background:rgba(247,37,133,0.1);
+  padding:3px 10px;border-radius:50px;margin-bottom:12px;
+}
+.guide-card-desc{
+  font-family:var(--serif);font-style:italic;font-size:0.88rem;
+  color:#c49ab5;line-height:1.75;
+}
+.guide-card-warning{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:14px;
+  font-family:var(--sans);font-size:0.6rem;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(247,37,133,0.6);
+}
+
+/* ── RULES SECTION ── */
+.rules-section{
+  background:#fff5fa;
+  padding:72px 32px;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.rules-inner{
+  max-width:800px;
+  margin:0 auto;
+  text-align:center;
+}
+.rules-section h2{
+  font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.5rem);
+  font-weight:900;color:var(--ink);margin-bottom:10px;
+}
+.rules-section h2 em{font-style:italic;color:var(--pink);}
+.rules-section .sub{
+  font-family:var(--serif);font-style:italic;font-size:0.95rem;
+  color:var(--muted);margin-bottom:44px;
+}
+.rules-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:16px;
+  text-align:left;
+}
+.rule-item{
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:14px;padding:20px 20px 22px;
+}
+.rule-num{
+  font-family:var(--serif);font-size:1.8rem;font-weight:900;
+  color:var(--pinklt);line-height:1;margin-bottom:8px;
+}
+.rule-text{
+  font-family:var(--serif);font-size:0.92rem;
+  color:var(--sub);line-height:1.7;
+}
+.rule-text strong{color:var(--pink);font-weight:700;}
+
+/* ── ABOUT SECTION ── */
+.about-section{
+  padding:72px 32px 80px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+}
+.about-inner{
+  max-width:700px;margin:0 auto;text-align:center;
+}
+.about-section h2{
+  font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.4rem);
+  font-weight:900;color:var(--ink);margin-bottom:16px;
+}
+.about-section h2 em{font-style:italic;color:var(--pink);}
+.about-quote{
+  font-family:var(--serif);font-size:1.15rem;font-style:italic;
+  color:var(--sub);line-height:1.9;
+  border-left:3px solid var(--pink);
+  padding:16px 24px;text-align:left;
+  background:var(--bgsoft);border-radius:0 12px 12px 0;
+  margin-bottom:28px;
+}
+.about-text{
+  font-family:var(--serif);font-size:0.96rem;
+  color:var(--sub);line-height:1.85;
+}
+</style>
+</head>
+<body>
+
+<!-- WARNING BANNER -->
+<div class="warning-banner">
+  🔞 <strong>Mature Content Warning</strong> — This site contains dark romance and adult themes. Reader discretion advised. 18+
+</div>
+
+<nav class="topbar">
+  <div>
+    <div class="logo">Douae<span>'s</span> Novels</div>
+    <div class="logo-sub">original writing</div>
+  </div>
+  <div class="nav-links">
+    <a href="#novels">Novels</a>
+    <a href="#guide">Genre Guide</a>
+    <a href="#about">About</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">✦ Original Dark Romance</div>
+  <h1>Little worlds,<br><em>written by hand.</em></h1>
+  <p>Short novels born in quiet hours — romantic, raw, entirely mine.</p>
+</div>
+
+<!-- GENRE GUIDE -->
+<div class="guide-section" id="guide">
+  <div class="guide-inner">
+    <div class="guide-tag">✦ Know Before You Read</div>
+    <h2 class="guide-title">A guide to the <em>genres</em></h2>
+    <p class="guide-intro">My novels live in specific corners of fiction. Before you dive in, here's what each genre actually means — because dark romance is not your average love story.</p>
+
+    <div class="guide-cards">
+
+      <div class="guide-card">
+        <span class="guide-card-icon">🥀</span>
+        <div class="guide-card-name">Dark Romance</div>
+        <span class="guide-card-tag">Core Genre</span>
+        <p class="guide-card-desc">Love stories where the road to happiness is messy, dangerous, or morally complicated. Think obsession, power imbalance, enemies who can't stay away. The feelings are real — the circumstances are not always safe. It's not a red flag, it's the whole genre.</p>
+        <div class="guide-card-warning">⚠ Contains mature themes</div>
+      </div>
+
+      <div class="guide-card">
+        <span class="guide-card-icon">🔥</span>
+        <div class="guide-card-name">Smut</div>
+        <span class="guide-card-tag">Explicit Content</span>
+        <p class="guide-card-desc">Explicit romantic and sexual content between adult characters. No fade to black — the tension breaks, and it's written out. Some novels are story-first with smut scenes. Others are almost entirely smut. I'll always mark which is which on the card.</p>
+        <div class="guide-card-warning">🔞 Adults only</div>
+      </div>
+
+      <div class="guide-card">
+        <span class="guide-card-icon">💔</span>
+        <div class="guide-card-name">Angst & Heartbreak</div>
+        <span class="guide-card-tag">Emotional</span>
+        <p class="guide-card-desc">Stories that are heavy on emotion — longing, loss, unrequited love, almost-relationships. The kind that make your chest tight. May or may not have a happy ending. You've been warned.</p>
+        <div class="guide-card-warning">🫀 Emotionally intense</div>
+      </div>
+
+      <div class="guide-card">
+        <span class="guide-card-icon">🏫</span>
+        <div class="guide-card-name">Campus Romance</div>
+        <span class="guide-card-tag">Setting</span>
+        <p class="guide-card-desc">Set in university — the hallways, the libraries, the parties, the dorms. Usually involves someone you should not be falling for. A professor, a rival, a stranger who sits too close in lecture. Classic setting, messy feelings.</p>
+        <div class="guide-card-warning">📚 University setting</div>
+      </div>
+
+      <div class="guide-card">
+        <span class="guide-card-icon">👁️</span>
+        <div class="guide-card-name">Obsession / Stalker</div>
+        <span class="guide-card-tag">Dark Trope</span>
+        <p class="guide-card-desc">One character becomes fixated — watching, following, knowing too much. A fantasy trope, not a blueprint. In real life this is dangerous and wrong. In fiction it's a lens for exploring desire, control, and the parts of ourselves we don't say out loud.</p>
+        <div class="guide-card-warning">⚠ Dark themes — fiction only</div>
+      </div>
+
+      <div class="guide-card">
+        <span class="guide-card-icon">⚔️</span>
+        <div class="guide-card-name">Enemies to Lovers</div>
+        <span class="guide-card-tag">Fan Favourite Trope</span>
+        <p class="guide-card-desc">They hate each other. Or they pretend to. The tension is unbearable, the arguments are foreplay, and when they finally break — it hits differently. One of the most beloved tropes in romance fiction for a reason.</p>
+        <div class="guide-card-warning">💥 High tension</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- READER RULES -->
+<div class="rules-section">
+  <div class="rules-inner">
+    <h2>Before you <em>read</em></h2>
+    <p class="sub">A few things to keep in mind while you're here.</p>
+    <div class="rules-list">
+      <div class="rule-item">
+        <div class="rule-num">01</div>
+        <div class="rule-text"><strong>Fiction ≠ Reality.</strong> Dark tropes are a safe space to explore feelings. Nothing written here is a how-to guide or a relationship goal.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">02</div>
+        <div class="rule-text"><strong>Check the genre tag.</strong> Every novel card tells you what's inside. If explicit content isn't your thing, the tag will warn you.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">03</div>
+        <div class="rule-text"><strong>18+ for smut-tagged novels.</strong> I mean it. If you're under 18, skip anything tagged explicit or 🔞.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">04</div>
+        <div class="rule-text"><strong>All writing is mine.</strong> Do not copy, repost, or claim any of this as your own. These stories belong to Douae.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="about-section" id="about">
+  <div class="about-inner">
+    <h2>About <em>this place</em></h2>
+    <div class="about-quote">
+      "I write the things I'm too quiet to say out loud. The longing, the obsession, the tension that never quite breaks. This is where those words live."
+    </div>
+    <p class="about-text">
+      I'm Douae. I write dark romance and short novels — the kind of stories that live in the space between want and restraint. My characters are messy, my love interests are complicated, and my plots almost always hurt before they heal.<br><br>
+      This website is my little corner of the internet. No algorithm, no filters, just stories the way I meant to write them.
+    </p>
+  </div>
+</div>
+
+<div class="section" id="novels">
+  <div class="section-head">
+    <h2>All Novels</h2>
+    <span>50 novels</span>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!--
+    ═══════════════════════════════════════════════════════════════
+    HOW TO EDIT IN VS CODE:
+    - Find the novel you want (Novel 1, Novel 2, etc.)
+    - Change the data-genre, data-title, data-desc attributes
+    - Paste your full text between the <div class="novel-text"> tags
+    - Use blank lines between paragraphs in the text
+    - Save the file and reload in browser — done!
+    ═══════════════════════════════════════════════════════════════
+    -->
+
+    <!-- NOVEL 1 -->
+    <div class="card" onclick="open_novel(this)"
+      data-genre="Dark Romance · Campus"
+      data-title="The Girl Behind Shadow Lady"
+      data-desc="She wrote thousands of love letters about him — he just didn't know they were real, or that she even existed.">
+      <div class="c-top"><span>🌹</span><span class="c-num">1</span></div>
+      <div class="c-body">
+        <div class="c-genre">Dark Romance · Campus</div>
+        <div class="c-title">The Girl Behind Shadow Lady</div>
+        <div class="c-desc">She wrote thousands of love letters about him — he just didn't know they were real, or that she even existed.</div>
+        <div class="c-read">Read novel <span>→</span></div>
+      </div>
+      <div class="novel-text" style="display:none">
+She wakes up before her alarm. Not because she's disciplined. Because she barely slept.
+
+The room is quiet, pale light spilling through the curtains. Fairy lights glow softly above her desk. Walls cream. Bookshelves full of worn romance novels. A vanilla candle half-burned. Her laptop closed, waiting.
+
+Everything about her room says: calm girl. Ordinary girl. Invisible girl.
+
+She sits up slowly. For a few seconds, she stares at her hands resting on the blanket. Long fingers. Still. Harmless. No one would ever guess.
+
+She stretches. Bare feet on the carpet. Sweater loose over her shoulders. Glasses slipping down her nose. Hair messy, tied back in a lazy ponytail. Her eyes are the only dangerous thing about her. They don't match the rest.
+
+She goes to the desk. Opens the laptop. The screen lights up. Her world waits there.
+
+TheShadowLady. 2.3 million reads. Thousands of comments. Fans begging for updates. Praises, questions, hearts.
+
+She types carefully. Slowly. Fingers hovering. A smile tugs at her lips. Not daring. Just small. Private.
+
+No one she knows would ever understand. Her friends, her classmates, her small circle — they think she's soft, shy, quiet. They don't know she's untouchable. They don't know she sets hearts on fire from behind a screen.
+
+She writes, imagining. Breath quickening at words she'll never say aloud. Scenes of longing, tension, love. Characters feeling everything she's too shy to admit.
+
+The laptop closes with a soft click. She leans back. Bare face, loose sweater, messy ponytail. Invisible. Ordinary. Yet somewhere inside, she grins. Because she knows her other self is alive. Magnetic. Bold. Desired.
+
+A message notification flashes. She doesn't open it immediately. She waits. Control. Her secret life thrives here. And she wouldn't trade it for anything.
+
+She got ready for school. Soft pink sweater. Denim skirt. Sneakers. Hair in a loose braid. Cute. Ordinary. Invisible.
+
+Breakfast was quiet. Her little brother laughing at some joke. Her mother pouring tea. Her father reading the newspaper. "Morning, Dua." "Morning," she mumbled, smiling softly.
+
+At university, she spotted her friends near the library. Mary's eyes lit up the second she saw her. "Dua! Did you read the new ShadowLady chapter? The ending of the last book? It was… fire!"
+
+Dua froze. Her stomach flipped. Her chest warmed. She smiled, shaking her head, casual. "That stuff? Ugh, I don't know. I just… I don't get it. All that over-the-top romance stuff. Not my thing."
+
+Mary gasped. "No way! It's brilliant! And the last chapter? The scenes… literally insane. I couldn't stop reading!"
+
+Dua laughed lightly, brushing a strand of hair behind her ear. "Yeah… I guess if you like that stuff."
+
+The girls moved on, chattering about lectures, assignments, campus gossip. Books. Teachers. Cafeteria drama. Clubs. Mary kept sneaking in comments about ShadowLady, still gushing. "She's amazing. Seriously, the way she writes… I don't know how anyone can do that."
+
+Dua nodded absentmindedly. Her face calm. Detached. Innocent. Inside, her pulse quickened. Every word reminded her of herself. Of the world she controlled behind her laptop. The life no one suspected. She loved the secrecy. Loved the thrill. Loved being ordinary in daylight and untouchable at night.
+
+She sat at her usual spot by the window. Desk neat. Notebook closed beside her. Backpack leaning against the chair. Her hands folded quietly in her lap.
+
+Her eyes weren't on the teacher. They were on him.
+
+Damon.
+
+The guy she'd been crushing on for years. The one she'd never spoken to. The one she'd written about endlessly. Every fantasy. Every story. Every impossible scene.
+
+He was in her head all the time. Every sigh, every glance she imagined. Every chapter of her ShadowLady novels — he lived there.
+
+She watched him now, leaning back in his chair, stretching lazily. Hair messy. Shirt sleeves rolled up. Oblivious. Untouchable.
+
+Her pulse quickened. She tried to focus. Notebook open. Fingers poised. Nothing came. She'd run out of ideas. All the stories she'd imagined for him, for herself, for the characters in her secret world… the words refused to form.
+
+A small sigh escaped her lips. She looked down, cheeks warm. Wishing she could just tell someone — anyone — how much she'd thought about him. But she didn't. She couldn't. Not in real life.
+
+Her notebook stayed closed. Her pen still. The ideas had fled. And yet, just seeing him there, simple and unaware, made her heart race anyway.
+
+Students spilled into the hallway. Dua stayed back for a second. Sally was talking with her friends. And there he was. Damon. Right there.
+
+Her head voice chirped immediately, loud and teasing. "Go on, genius. Stand there. Smell him. Get some inspiration. Don't just drool from afar."
+
+Dua froze. "What? No! That's… that's creepy." "Creepy? Please. You've been writing entire novels about him. You've practically married him in your head. Now go. Do your job."
+
+She bit her lip. The crowd around them laughed, shuffled, moved. Her heart thumped in her ears.
+
+"Yes, yes, just stand there. Pretend you're talking to Sally if you want. But don't not look at him. Eyes. Nose. Shirt. Smile. All of it. You know you want to."
+
+Dua's stomach twisted. She wanted to argue, but the voice had a point. She did want to. So she walked. Slowly. Casually.
+
+"Oh, look at you, pretending to be normal," the voice mocked. "Cute. So shy. Perfect. Now inhale deeply and feed your little stories. You know he smells amazing."
+
+She stopped a few steps away. Pretended to laugh at something Sally said. But her nose caught him anyway. The faint scent of soap, something warm, familiar.
+
+"Mmhm," the voice purred. "Now that is a chapter starter. Go on, take mental notes, girl. You've got work to do."
+
+Her heart raced. Her hands itched to grab her notebook. But she stayed there, smiling innocently. A quiet girl in pink. With a raging writer hiding inside.
+
+The hallway buzzed with chatter. Sally and the others were talking about a movie. Something she had never seen. Her knowledge of normal media barely existed. She mostly read smut, romance, things no one knew about.
+
+Her head voice snorted. "Great. Real life stuff. Totally useful. You're gonna sound dumb, genius."
+
+Dua smiled politely, nodding. "Uh… yeah, sounds… fun," she mumbled. Pretending to know what they were saying. Her eyes, of course, kept drifting. Damon. Right there. Laughing with Jenny. Casual. Unaware.
+
+"Go on," the head voice whispered. "Breathe him in. Smell him. Get your notes. Your readers are starving."
+
+She took a quiet breath. The scent hit her — soap, something crisp, faint cologne. Her notebook throbbed in her mind. Ideas began forming, even if she didn't speak a word.
+
+Sally turned, pointing. "Ugh, Jude! Can you believe him? My boyfriend totally messed up again." "Ooooh, gossip. I love this," her head voice purred. "Spill the tea. Watch her lose it. You're living vicariously, girl."
+
+Dua tilted her head, faking interest. "Really? What happened?" Sally's voice got louder, dramatic. "My boyfriend… he promised he'd pick me up last night. Didn't show. No text, nothing. I'm so mad!"
+
+"YES," the head voice hissed. "Anger is perfect. Use it. Fuel it. Every chapter you ever write needs this energy."
+
+Dua nodded along, outwardly sweet. Inside, her imagination flared. Her head voice cackled. "Look at you, pretending to care about movies and boy drama while drooling over Mr. Perfect. Classic."
+
+She glanced again at Damon. His laugh, the tilt of his shoulder, the movement of his hand as he tucked hair behind his ear. "Mmm… chapter starter," whispered the head voice. "You've got bigger, hotter ideas brewing right here."
+
+Dua smiled faintly, hiding the flush creeping up her neck. She could be invisible. She could play along. And still feed her secret world, one glance, one inhale at a time.
+
+Damon blinked. "Yeah… sorry?" he said, clearly confused. "Uh… what do you mean?"
+
+Dua's mouth went dry. Her heart jumped. He was… talking to her.
+
+"Ohhhhhhh," her head voice squealed in her mind. "Finally! You're not invisible anymore! Don't screw this up!"
+
+Dua opened her mouth. Then closed it. Then opened it again. "I… uh… I was just… talking to my… um…" she trailed off, cheeks burning.
+
+"Smooth. Real smooth," her head voice hissed.
+
+Damon tilted his head, a small smile forming. "You shouted… something," he said carefully. "You… shut the?"
+
+"Oh my god," the head voice squealed. "He heard! He's hearing you curse in public! Bravo!"
+
+Dua waved a hand, flustered. "Uh… nothing! I mean… just… talking to myself. Yeah."
+
+He laughed softly. Not mocking. Just… curious. "Talking to yourself, huh?"
+
+"Yes! Kill me now!" her head voice groaned. "He thinks you're cute, not psycho… maybe."
+
+Dua swallowed. She nodded, trying to act casual. "Yeah… totally. Just… muttering."
+
+Damon's smile widened a fraction. "I'm Damon, by the way," he said, extending a hand.
+
+"Holy yes! Handshake! Interaction! You're alive!" her head voice cheered.
+
+Dua hesitated. Her fingers brushed his. Warm. Solid. Real. She swallowed again. "Dua," she whispered.
+
+A pause. A small laugh. Two strangers… but somehow, after years of her staring, imagining, writing… it felt like a tiny beginning. Her head voice purred. "Chapter one, baby. Chapter one."
+
+Her head voice buzzed in her mind. "I've got an idea!" Dua whispered to herself, barely moving her lips. "Go. Write it. Now," the voice shot back, sharp and sassy. "Even if it's small. Every detail counts."
+
+She glanced down at her bag. There it was. Her little pink notebook. Hidden. Sacred. Always ready.
+
+She couldn't focus. Not with them all there. Not with Damon a few feet away. Not with her head buzzing, screaming for details. "Go. Leave. NOW," the voice hissed. "Before you implode in front of everyone."
+
+She left him mid-sentence. Couldn't handle it. Couldn't answer. Just… slipped away. Hallway emptied around her. Empty classroom ahead. Safe. Quiet. Perfect.
+
+Door closed softly. Bag on the desk. Pink notebook pulled out. Pen ready.
+
+She wrote. Furiously. Every glance, every word, every detail from earlier. Her head voice purred. "Finally! This is gold! Don't miss a thing, girl."
+
+Minutes passed. Lost in her secret world. Then a voice cut through the quiet. "Hi… I… uh… tried to talk to you."
+
+She froze. Damon. Here. Her pen paused mid-word.
+
+He glanced at her notebook. "Oh… is this… math? I didn't know you study during breaks."
+
+"Shut up, dummy," her head voice whispered, laughing. "Uh… no, I'm not," she muttered nervously. Packing her things quickly. Heart hammering.
+
+She tried to shove everything back in her bag. Her notebook… still on the desk. She didn't notice. Damon's gaze flicked to it. Curious. She froze. Awkward.
+
+Head voice giggled in her mind. "Yes! Leave it. Let him wonder. Messy, nervous, perfect. GOLD."
+
+She mumbled a half-smile. "Uh… see you later." She bolted. Notebook left behind. Heart racing. Thoughts spinning. And somewhere, the pink cover glimmered quietly on the desk, holding all her secrets.
+
+Halfway home, she slowed down. Heart still racing. Her fingers brushed her bag. Her stomach sank. "No… no… no…"
+
+The pink notebook. Not in her bag.
+
+Her mind went blank. Her head voice shrieked. "I told you! I told you! You left it!"
+
+Dua cursed under her breath. "Shit… shit… shit!" She broke into a run. Feet pounding the pavement. Backpack bouncing. Hands trembling. Empty streets blurred past.
+
+Finally, she reached the school. Hallway empty. Silent. She slipped into the classroom. Door clicked shut behind her.
+
+"Oh… thank God," she whispered, relief flooding her.
+
+A voice drifted from the shadows. Slow. Playful. "Yeah… thank God."
+
+She froze. Heart stopping. "ShadowLady," the voice added. Soft. Teasing. Knowing.
+
+Her notebook rested on the desk. Open. Waiting. Her head voice purred. "Ohhh… hello, genius. This just got interesting."
+
+Dua's breath caught. Alone? Not quite.
+
+Damon caught her hand as she tried to pull away. "What else do you do, ShadowLady? You're… obsessed," he said, tight grip but calm curiosity.
+
+Dua's heart hammered. She swallowed. "Oh no. Oh no. Oh no…" her head voice hissed. "Nothing!" she said quickly, voice shaky. He didn't let go.
+
+"Okay… but there's information here. Things no one knows except people close to you. How… how did you find out about me?"
+
+Her chest tightened. Her mind raced. "Now or never, genius. Protect yourself!"
+
+"You know what?" she blurted, words rushing out. "Yes. I do. I'm… obsessed. I notice things. I watch. I… I even saw you last Wednesday night at 9. I know things I shouldn't. I know your secrets… and you know mine. I'm… I'm done hiding it."
+
+Damon blinked. Her head voice squealed inside her mind. "YES! Bombshell! Fluster him! Stay fierce!"
+
+Her fingers gripped her pink notebook, pressing it to her chest. "I… I won't expose anything," she added, voice firmer now. "But… I need something in return. Respect my space. My rules. That's it."
+
+Damon's expression softened, still curious, still processing. "You're… intense," he said quietly. "ShadowLady… I didn't realize."
+
+Dua's heart still raced, but for the first time… she felt in control. Her obsession, her secrets, her courage — all her own. She had admitted it. Set her terms. And walked the tight line between fear, thrill, and power.
+
+Her head voice purred. "Yes. Bold. Messy. Perfect. Now write it all down later!"
+
+Damon shook his head slowly. "Dua… look at yourself," he said quietly, tone steady but firm. "You're doing this for your ego. You exposed yourself. You made yourself vulnerable. And now… you want to feel in control. That's it."
+
+Her chest heaved. Face flushed. Her head voice screamed inside her mind. "NO! Don't let him see! You need this! GOLD!"
+
+"You're doing this for your ego," he continued, voice calm, unwavering. "You exposed yourself. You made yourself vulnerable. And now… you want to feel in control. That's it. That's why you're here. Not because you like me… not because of stories… none of it. It's you. Ego. Power. Control."
+
+Dua's stomach twisted. "…He's right," her inner voice whispered, reluctant but undeniable.
+
+Her heart thumped painfully. "…It's not because I like him. It's not because I ran out of ideas… it's the control… the ego… the thrill…"
+
+Damon's jaw tightened. He tried to stay calm. Tried to act nice. Tried to reason with her. "You don't have to… beg," he said softly. "None of this proves anything to me."
+
+But his eyes betrayed him. A flicker. A pause. Something buried behind his control… want.
+
+Dua's chest heaved. Her face flushed red. Her fingers clenched the pink notebook like armor. "Yes! Keep him on edge! Perfect!" her head voice purred.
+
+"I… I need it!" she whispered, voice breaking. "Just once! I… I can't… I have to!"
+
+Damon shook his head. He ran a hand through his hair, trying to steady himself. "I'm trying to help you, Dua. You're doing this for yourself. For control. For… ego. Not for me. You know that deep down."
+
+"Yes!" she cried inwardly, "he's right… but it feels so… real… I can't stop!"
+
+Her heart raced. Every nerve on fire. "And yet," his voice lowered, careful, measured, "you keep begging."
+
+She bit her lip. Her head voice giggled wickedly. "YES! Melt him. Make him want it. Flustered, tempted, curious… GOLD!"
+
+Damon's fingers twitched near hers. He fought it. Tried to remain calm, rational. But the tension… thick. Heavy. Electric.
+
+Her pink notebook rested against her chest. Secrets, obsessions, fantasies… all spilling into the quiet room. And she kept begging. Not just for the thrill. For control. For validation. For the dangerous, delicious pull she couldn't resist.
+
+Her head voice sighed in delight. "Yes… chaos, desperation, obsession… this is art. Pure, messy, perfect art."
+
+He left the classroom. Quiet. Calm. Controlled. Dua's chest tightened. "No. No. No. Don't let him get away!" her head voice screamed.
+
+She ran after him. Feet pounding the empty hallway. Heart hammering. Notebook clutched to her chest. "Damon… wait!" she called, voice shaking.
+
+He stopped, turned slightly, wary. "I… please…" she said, words tumbling out. "I know… I know I've been… obsessed… intense… maybe crazy… but please…"
+
+Her cheeks burned. Her head voice squealed. "YES! Desperate! Flustered! Melt him with your chaos!"
+
+"I need… I need just once! One… real… thing! To feel it… to know… I… I can write again! I can… I can let it go after that! Please…"
+
+Damon's brow furrowed. "Dua… you don't have to—" "Please!" she cut in, louder, raw. Her fingers gripped her notebook tighter. "Just once! I promise! I'll leave it all behind! I'll stop obsessing! I'll—"
+
+Her voice broke. She swallowed hard. Eyes wide. Heart racing.
+
+Damon's expression softened, conflicted. "Dua…" he said quietly, almost a whisper. "You're… something else. I didn't realize…"
+
+Her head voice giggled mercilessly inside her mind. "YES! Melt him. Chaos. Obsession. Perfect. Keep begging, genius!"
+
+Dua's knees wobbled. Breath shaky. Heart pounding. And she didn't stop. Couldn't stop. The hallway echoed with her desperation, her obsession… and the pull she couldn't resist.
+
+She ran after him. Heart hammering. Notebook pressed to her chest. "I'll tell them!" she blurted, voice shaking. "All of it!"
+
+He stopped. Turned slowly. Calm. Controlled. "Dua… give me time to think," he said quietly.
+
+Her chest tightened. "Time? NO. Not for you. Not for me. NOW!" her head voice hissed.
+
+"No!" she snapped, stepping closer. "Baby… your time's run out. Say your answer. Now."
+
+He blinked, caught off guard by her boldness. A slow smile tugged at his lips. "Yes," he said softly.
+
+Her knees almost gave out. Notebook still clutched. "YES! He said yes! Chaos, obsession… PERFECT!" her head voice squealed.
+
+Her chest heaved. Breath shaky. Heart racing. And for the first time… she felt the thrill of control… and the terrifying pull of what she'd wanted for years.
+
+Her heart was still racing. Breath uneven. Her head voice screamed inside her mind. "Okay… now what? You're a virgin, you don't know shit about this! You've never kissed anyone! You have no idea what you're doing!"
+
+Dua froze, cheeks burning. "Oh god… shut up!" she muttered silently.
+
+"No! Listen! You need to think! Control your chaos! Don't make a fool of yourself! But also… this is exactly why it's perfect. You're a mess! And he's never seen this side! YES!"
+
+She gripped her notebook tighter, heart hammering, mind spinning. "Focus. Breathe. And… maybe… just maybe… survive this alive."
+
+Her head voice snickered, relentless. "Good luck, genius. You're about to learn the hard way.""No! Listen! You need to think! Control your chaos! Don't make a fool of yourself! But also… this is exactly why it's perfect. You're a mess! And he's never seen this side! YES!"
+
+She gripped her notebook tighter, heart hammering, mind spinning. "Focus. Breathe. And… maybe… just maybe… survive this alive."
+
+Her head voice snickered, relentless. "Good luck, genius. You're about to learn the hard way."
+      </div>
+    </div>
+
+    <!-- NOVEL 2 -->
+    <div class="card" onclick="open_novel(this)"
+      data-genre="Romantic Comedy · Smut"
+      data-title="Hotter Than Lasagna"
+      data-desc="She packed a whole bakery, hid used socks in her bag, and swore she felt nothing — it's just physical, totally. So why is her face burning every time he smiles?">
+      <div class="c-top"><span>🍝</span><span class="c-num">2</span></div>
+      <div class="c-body">
+        <div class="c-genre">Romantic Comedy · Smut</div>
+        <div class="c-title">Hotter Than Lasagna</div>
+        <div class="c-desc">She packed a whole bakery, hid used socks in her bag, and swore she felt nothing — it's just physical, totally. So why is her face burning every time he smiles?</div>
+        <div class="c-read">Read novel <span>→</span></div>
+      </div>
+      <div class="novel-text" style="display:none"> It's Wednesday. 3 p.m. The picnic is at 5, and I'm already pacing like an idiot.
+
+I pull out a cute outfit… then immediately throw it back in the closet. "No. Too cute. He's gonna think I'm into him," I mutter. And I'm not. Like, at all. I just like what he does to me — that's it. Purely physical. Zero heart, zero romance.
+
+I grab simple pants. Whatever. A top. Then a jacket because I'm not giving him the satisfaction of seeing me look like I tried.
+
+I stare at myself. "Yeah, good. Very 'I don't care.' Perfect."
+
+Makeup time. Just a bit. Light. Effortless. I put blush. "Wait. Why is there so much?" I grab a tissue, dabbing like a lunatic. "He's gonna think I want him to say I look cute. No thanks. I just need to look… presentable enough to not seem dead."
+
+Lipstick. Soft. Natural. I look in the mirror. "…Why does this look like I'm asking to be kissed?" Absolutely not. I wipe it. Redo a tiny bit. Wipe again. Redo again. I swear under my breath. It's not that I want him kissing me — I just don't want to look like a zombie. That's it. That's literally it.
+
+I grab my bag, and then — "THE CHEESECAKE!" I run to the fridge like I'm in some weird cooking competition, yank it out, and shove it in a container. Check the time. 3:47 p.m. Great. Amazing.
+
+"I'm gonna be late. He's gonna make a comment. I just know it." I groan.
+
+"Okay…" I breathe out, standing in the kitchen like I'm about to host a whole wedding instead of a stupid picnic with a guy I'm not even into. "Cheesecake? Ready. Cookies? In the box. Cake? Yup. Crêpes, baghrir, muffins…" I blink. "Why did I make… all of this?" I shake my head. "It's fine. I'm just generous. Doesn't mean anything."
+
+Then I see the tea. "Oh my God. Tea? Did he even say he likes tea? I don't remember. I don't think he cares. I don't care." I put the bottle in the bag anyway. "If he doesn't like tea, he can drink water. I'm not asking. I literally do not care."
+
+I check everything again like some unhinged event planner. Then my stomach drops. "The menu… I forgot." I press my hands to my face. Of course I forgot the stupid menu — the little card with each food item and the… "price." Whatever. It's just a joke. A stupid game. No big deal.
+
+I grab the gift. "Oh my god, the gift!" I hold it like it's radioactive. "It's not because I like him. It's just… a gift. For a friend. A normal, neutral, emotionally empty friend."
+
+I march to the mirror. My cheeks are pink. My lipstick is suspicious. My outfit looks like I tried without trying. I point at my reflection. "Do. Not. Look. Like. You care." And then I sigh. "Okay. Let's go before I start acting like I'm actually into him. Which I'm not. At all."
+
+I'm halfway down the stairs when it hits me like a slap. "THE SOCKS." I stop, grab the railing, and just stare into the void for a second. How do I forget the one thing he actually asked for? His stupid little fetish request.
+
+I roll my eyes so hard they almost fall out. "Great. Amazing. Fantastic. I cooked like I'm feeding a family of ten but forgot the one thing he wanted." I turn around and march back up the stairs, annoyed at myself, annoyed at him, annoyed at gravity.
+
+I reach my room, snatch the used socks from the chair — God, I can't believe I'm doing this — shove them deep into the bag so no one ever sees them, not even me, and zip it shut like I'm hiding evidence. "There. Happy?" I mutter to no one. Then I grab everything again, take a breath, and head back to the stairs. "Okay. Now I'm actually leaving." Even if I feel like the most chaotic clown on the planet.
+
+I step onto the street with all my bags and immediately want to disappear. "Oh my God," I mutter to myself, adjusting my scarf and trying not to drop anything. "I look like a clown. A full clown. A clown with a hijab and a whole bakery in her hands. Why? Why did I bake like I'm feeding a wedding? It's just a picnic. A simple picnic."
+
+I shift my weight, nearly tripping. "And the socks. The used socks. Amazing. Truly the highlight of this bag. I swear, if someone looks inside, I'm throwing myself into traffic."
+
+I keep walking, dragging everything with me like I'm training for a marathon. "This is actual cardio. This is a workout. I'm burning calories I didn't even eat yet."
+
+Finally, I step closer to the road, raise my arm, and start waving for a taxi like my life depends on it. One passes. Another one pretends he didn't see me. A third one slows down finally — probably terrified by the sight of me and my circus of bags.
+
+I open the door and shove everything inside first, then sit down and fix my scarf before it falls off my head. I give him the destination. No small talk, no questions — just silence. Perfect. Exactly what I need.
+
+I lean back between the boxes and containers piled around me. "Okay," I breathe, talking only to myself. "It's just food. It's just a picnic. You're not into him. You're literally not. You just… like the physical stuff. That's it."
+
+The taxi drives off, and I stare out the window, surrounded by enough pastries to open my own shop. Me, my hijab, my bakery, my chaos… and absolutely zero feelings. Just whatever comes next.
+
+I step out of the taxi and the cold hits me like a slap. "It's freezing," I mumble, pulling my jacket tighter around my scarf. April. Seventeen degrees. Why am I shivering like it's winter?
+
+I start walking toward the park, the bags knocking against my legs, my breath coming out in little clouds. Then I see him. And my brain stops working.
+
+"Oh my God," I whisper to myself, instantly wishing I could disappear. "I'm gonna die. I'm literally gonna die." For a second I swear I feel something like a weird oh-no flutter and I instantly smack it down in my mind. "No. Nope. Nothing. Absolutely nothing. Shut up."
+
+But he looks different. Last time he had more hair. Now it's shorter. Not shaved, but shorter enough that his jawline is doing too much. Way too much. And he still looks hot. Like… annoyingly hot. His body, God. His arms. What is that? Why does he look like he works out just to torture me?
+
+I take one more step, and suddenly I'm not cold anymore. At all. "It's hot here," I mutter. "It's actually burning. Is the sun even out? Why am I sweating?" I press my hand to my cheek. They're warm. Too warm. I open my front camera for one second and — "Oh my God." My cheeks are red. Redder than they were at home. Red like I ran here. Or like I actually care.
+
+"No. No no no," I whisper aggressively at my reflection. "It's just the cold. Or the heat. Or whatever. It's not him. It's science. It's weather. Shut up." But my legs keep moving forward. And now he's looking at me. And I feel my face burn even more.
+
+I know we're… like, really close. Too close. Way too close. And I can't stop noticing it. He's tall. Way taller than me. Like, I don't even have to think about numbers — just… taller. Always towering over me, and I keep thinking about it and then tripping over my own feet.
+
+I've seen him before. A lot. Too much, actually. But right now, I can't look at him. I keep my eyes glued to the ground, hiding my face, pretending I'm totally indifferent.
+
+Not that I wasn't in his arms before, obviously… but that was different. That was private. That was physical. That wasn't… this. Now? Now we're out here in public, with the sun on our faces, and somehow it's shy. Like I can't believe it. We're not naked in each other's arms this time, yet my stomach is doing weird flips anyway.
+
+He spots me and waves. "Hi," he says. "Hey," I reply, trying to sound sweet, normal, like I'm not dying inside. "Nice! How are you?" I add, the words tumbling out like I practiced them a hundred times but they still sound… wrong.
+
+We talk. Small, weird, slightly awkward conversation. Nothing important. Just words. "Yeah, the weather's…" I trail off. "Crazy," he says. I laugh. Too loud, maybe. He smirks. I bite my lip. Stop thinking about that.
+
+The conversation is stupid. Totally stupid. And I love it. Not emotionally, just… chaotic, distracted, him energy.
+
+After a bit, we both realize we need somewhere to sit. "Uh… picnic?" I say, gesturing vaguely at the blanket. "Yeah," he says, grinning. We start looking for a spot on the ground. I try to walk like I'm not carrying half a bakery and a bag full of… socks. He keeps glancing at me, like he can tell, but I don't care. I mean, I do care… physically. But not like that.
+
+We find a spot. Not perfect. Not scenic. But fine. I drop the bags. Sort of gracefully. Kind of not. And then we sit. Finally.
+
+I flop onto the blanket, dragging the last bag behind me. "Omg… this bag," I groan, "so heavy. I swear I nearly died just bringing it here." He looks at me, eyebrows raised. "You really did… bring all of that?"
+
+I glance down at the socks in my hand, clutching them like they're tiny grenades. "Yeah… these," I whisper, holding them out carefully. "It's… uh… top-secret delivery." He blinks. "Top-secret delivery?"
+
+"Yes! You don't understand," I hiss, looking around like anyone walking by might see me. "I can't just hand them to you like a normal person! This is… covert ops. Very serious. Very intense." He chuckles. "Wait… you're treating socks like some kind of illegal package?" "Exactly!" I whisper, leaning forward. "You don't just… take them. You wait. You… earn them. It's… a process."
+
+He laughs again, shaking his head. "You're ridiculous. Totally ridiculous." "Yes!" I say, dramatically pressing them into his hands. "Mission accomplished. But… carefully. Very carefully. One wrong move and…" I trail off, gesturing vaguely like a bomb might go off. He laughs, holding them like he's scared, and I collapse back onto the blanket, sighing. "Why is this so awkward?" I mutter. "Because you're… insane," he says, smirking. "Exactly," I whisper, feeling accomplished.
+
+We're sitting there, finally breathing, and I pull the little "menu" out of my bag. I hand it to him. "Here," I mumble. "Pick something." He scans it with that little smirk on his face. "I want everything," he says. "Literally all of it." "Everything?" I raise an eyebrow. "Yeah," he shrugs, pretending to be serious. "But uh… I can't pay for it here in public." He leans slightly closer, lowering his voice. "The… transaction… has to be discreet." I roll my eyes. "Oh my god. Not you joining my undercover operation."
+
+He laughs finally, like really laughs — and the sound makes me look away because I swear my soul left my body for a second.
+
+And you know what? He looks so good today. Like annoyingly good. His hair is a little messy in that "I didn't try but somehow it's perfect" way. He's taller than me obviously but when he sits, he still feels tall, shoulders broad, taking up more space than he thinks. His eyes are soft but sharp at the same time, the kind that make you look down immediately because they feel too direct, too warm. And that jawline… it's just sitting there, being rude. Plus he smiles with only one side of his mouth first, like he's holding back a laugh before it comes out.
+
+He looks up from the menu, flicking his gaze to me. "So…" he says slowly, teasing, "you gonna give me the full package?" I choke on nothing. "Don't say it like that." "What?" he laughs. "I meant the muffins!" "Sure you did," I mutter, face burning. He's still smiling, still watching me like he finds all my reactions way too entertaining.
+
+We didn't really talk about anything serious. I spent most of the time giving him the "tea" — news, things that happened at school, mostly about the girls. I handed it to him casually, like it was no big deal. He listened, genuinely interested, asking questions sometimes, nodding, making comments here and there. I refilled his cup a few times while we talked.
+
+It was ridiculous. I kept reminding myself: I don't like him. Zero feelings. I just… like what he does to me. But somehow, sitting there, handing him all this information, watching him lean forward and react, my cheeks got warmer than they should have. And every time he looked at me like he knew something, my stomach did that stupid little flip it's not supposed to do.
+
+It's almost sunset. The sky is turning those ridiculous colors — pink, orange, gold — and for some reason, the reflection hits his skin just right. Like… ten times hotter than usual. Ugh.
+
+Then his phone buzzes. He glances at it and immediately starts smiling. Maybe she's his new girl. Well. Fine. I've been here before. I don't care. I've always been the… you know, the "sex friend." He's free. He can do what he wants.
+
+But… for some reason, I feel a little… off. It's stupid. Bit rude, even. Texting some other girl after all this effort. All the baking, the crazy bags, the socks… whatever. I tell myself: I don't care. Really, I don't. I repeat it like a mantra. But the ache in my chest won't go away, not completely.
+
+I shake my head. "No. Stop it. You don't care." Still… my eyes flick to him. And yeah. He's ridiculously hot. Ugh. Why does that always make it worse?
+
+I was about to give him the gift. The one I spent months making. Months. Perfect, flawless, totally me. But… he'll never know. Because I'm not giving it to him. Not today. Not ever. And you too, dear reader? You'll never find out either. Let his next girl give it to him.
+
+I shove the thought down and start eating like crazy. When I'm mad, I eat. Hard. Fast. Aggressively. Cheesecake, muffins, cookies — all of it. I barely taste it. He looks surprised. Raises an eyebrow. "You… you eat fast when you're mad?" he asks. "Maybe," I mutter, stabbing another bite with my fork. "Maybe not. Who knows."
+
+We start talking. Small words, awkward sentences. But… it's off. Something's weird. And then… ugh. He turns me off again. Like he does. Like it's effortless for him. I roll my eyes and shovel in another cookie.
+
+I can smell his hair. God, it's so good. And I'm mad. Furious. I try to talk. Really, I do. But he's… cold. So cold. Like always. His mood swings, the way he just… switches. I feel it hit me all at once. I'm done. Absolutely done. I will never do anything cute for him again. It's all… sexual now. That's it. Purely physical. Nothing more.
+
+I mutter under my breath, "Bilal… Mom is calling…" And lie. "Just… I need to go." I grab my stuff, packing like it's an escape mission. "I'll give you the meeting details at my place," I say quickly, already halfway standing. He looks at me, confused, maybe annoyed. I don't care. I just… leave.
+
+I hate crying on my way home. But of course… he did it again. He always succeeds at this. Always.
+
+Part of me wants to let him come to my house. Another part wants to let his… new girl do it. The thought makes me insane. He could like anyone. Any girl. But… me? Crazy. I hate him. I mean it. But… I'm horny. And that's the only reason. The only reason. Any other way? I'd never talk to him again. Never.
+
+Three days passed. Three days of silence. Three days of replaying everything in my head. Then the house got quiet.
+
+My parents left, my brother left — the whole family traveling. Suddenly I was alone in this big, empty home. No noise. No rules. No one watching. Just me and my thoughts. Which is dangerous.
+
+I stared at my phone for a long time, trying to resist the idea forming in my head. A sleepover. Not romantic. Not emotional. Just… physical convenience. That's what I told myself. So I texted him: "Everyone's gone. If you want we can do a sleepover." I wasn't expecting a fast reply. But he answered almost instantly. "I'm in."
+
+Just like that. And suddenly my whole chest got hot, and my stomach twisted, and I pretended it was nothing. I put my phone down and said to myself: Okay. After this, I'm done. For real this time. Even though I've said that before. Too many times.
+
+I woke up kind of early today — 9 am, which technically isn't early, but for me it totally is. I don't even know why, but I felt excited. Like genuinely excited. Nothing dramatic, nothing deep, just this bright little feeling humming under my skin. We texted a few times in the morning, both of us laughing about how hyped we were, and it made the whole day feel even lighter.
+
+I'm in the kitchen now, leaning on the counter, thinking. In a tight white top, the kind that hugs every curve. I'm in tiny shorts too, soft and short, showing a lot of leg. Bare feet on the cool tiles. My hair is a mess from the morning rush, falling everywhere, not cooperating at all. I pushed on my glasses just to see the recipe properly, and now they're sliding down my nose every five minutes.
+
+Lasagna. Of course. He loves lasagna. I want it to taste perfect. And then I remember the lemon cheesecake. God, he loved it last time. So I decide — yeah, I'm making that too. Lasagna. Cheesecake. Potato wedges. My secret sauce. That's the menu.
+
+I start cooking and suddenly time moves quickly. The kitchen gets warm. The smell fills the whole house. I'm smiling without even noticing.
+
+I finish the wedges, place them on the tray… but I keep a small portion on the side, without my sauce. Because he has his own secret sauce. (And honestly, it tastes better hh) So I save those especially for him.
+
+The lasagna is in the oven. Cheesecake in the fridge. Everything is ready. But me? Me? I forgot me. I don't smell like me. I smell like cheese and sauce and everything from the kitchen. What the fuck is that?
+
+I should shower. Maybe shave? No, no need, it'll take time. Just a quick shower. Quick. Fast. Done. Hot water, soap, rinse, quick, quick, quick. Okay. Yeah. That's it.
+
+Okay, I'm out of the shower. Wet. Damp. Shivering. Tiles cold. Not complaining. Mostly because… he's coming. Hair. Down. Messy. Perfect. Like I tried but gave up. Classic me.
+
+Closet. Open. Pink pants. Tight. Hugging… way too much. White top. Very tight. Breathing optional. But hot. Definitely hot. Glasses sliding down my nose. Cute? Hot? Maybe both. Mirror. Check. Smile. Twirl. Laugh at myself. Okay, that's funny. That's me.
+
+Oh my god, my nails. My nails are good shape. Nice. But no polish. Too many colors. Too many options. No time. White? Pink? For toes… white. Clean. Simple. For fingers… baby pink. Yeah. Baby pink. Fine. Quick strokes. Fast. Chaotic. Oops, a little smear. Whatever. Done. Nails. Polished. Okay. I'm ready.
+
+Phone buzzes. I check Instagram. Oh. He's here. Okay. Okay. Calm. Breathe. I open the door.
+
+And there he is. All black. Head-to-toe. Curls falling over his forehead like he just… didn't try. Hot. Effortlessly. Like he's walking out of a movie. Cute too. Like he could make me laugh any second. I swear his arms are unfair. Arms that just… exist and break laws.
+
+I almost trip over my own feet. He notices. Laughs. Quiet. Sweet. Not mocking. Just… him. And I'm standing there… trying not to melt. Trying not to stare like a total idiot. God, he's just… him. And I'm supposed to act normal. Yeah. Good luck with that.
+
+"Hey," he says. Funny smile. Quiet laugh. Not flirty, just… him. "Step in," I tell him. He does. Big step. Careful. His eyes. Always the same. Calm. Focused. Hot. And somehow… soft too. He's in my house. Weird. Smells so good. God, I love that. Trying not to stare. Trying not to trip over my words.
+
+"Room tour?" I ask. "Or nah?" "Room tour," he says, easy. Okay. Show time. I lead him to my room. Pink. Posters. Books. Chaos. And somehow… him here makes it feel like… more. I try to act normal. I fail. I giggle. He smiles. I die a little inside.
+
+He steps into my room — slow — looking around like he's in a museum. "Okay," he says, "you're gonna be my hottest guide today." He says it so casually, like he's asking for a glass of water. I choke on air. "Uhh yeah. Sure," I say, trying to sound confident, failing terribly.
+
+I point around like a clown tour guide. "So, yeah that's the bookshelf… this is the closet… that's the bed… the make-up thing… random stuff everywhere… books… yeah… that's literally it." Inside my skull: why am I doing this, why am I doing this, stop talking please please STOP.
+
+I laugh nervously. He laughs too, but like, his calm laugh. Like nothing is dramatic. "This is actually cool," he says, still looking around. I shake my head. "No it's stupid, I'm stupid, I don't know why I'm giving a tour, you see everything already, this is so embarrassing." He just shrugs, smiling, like it's all normal. Like me panicking is normal. Like him here is normal. Like nothing is weird. Even though everything is weird. And… somehow good.
+
+He steps in, glancing around, curls bouncing a little. "Oh wow," he says, "it smells so good in here." He grins. Big, easy. Yeah, he means food. "Yeah," I say, trying to sound casual, "I, uh… did something for you. But, you know… I don't know if you're gonna like it."
+
+He laughs, that effortless laugh, shaking his head. "Oh, come on. Obviously I'm gonna like it. I like everything you do." And he adds that smile — that dirty, kinda slutty smile. Like he knows exactly what he's saying, and he knows I get it too. I act like I don't understand. Blink. Smile nervously. Pretend nothing. He leans back a little, grinning like he believes I didn't understand either. And somehow, it's perfect.
+
+"It's hot in here," he says, fanning himself like it's the end of the world. I smirk. "Oh? Feel free… you can take off your top if you want." Trying to sound casual. Totally failing. He raises an eyebrow, that lazy, teasing grin on his face. "If you help me," he says.
+
+I bite my lip. Okay, fine. I step closer. Hands on the zipper. Fingers brushing over skin. The heat between us spikes instantly. Air thick. Smells, warmth, adrenaline. I can feel him leaning in, closer, closer — I can't stop smiling, heart racing.
+
+Then… our lips meet. Soft at first. Then harder. We're laughing a little. Flustered. Hands tangled. Breath coming fast. I'm melting, lost, caught up in the heat and the teasing. And just like that the room disappears. It's just him, me, and the kiss.
+
+We're standing there. Kissing. Grinding. Neck kisses. His hands — big. Strong. Touching me. Everywhere. Then suddenly, he lifts me. Just like that. My legs around him. My body pressed to his. I can feel the heat. The pulse. The tension. It's insane. We're laughing a little — breathless, dizzy. Hands tangled. Kisses messy, urgent. I don't want it to stop. Not now. Not ever.
+
+We eat. He loves the potato wedges. And the sauce. I didn't tell him yet about the little portion I left just for him. So he can add his secret sauce. He looks at me, grinning. "Okay… you have no tea." I raise an eyebrow. "Oh really? No tea?" I stand up, hands on hips, smirking. "Look at my body. Isn't this tea? Hot, spicy, scandalous tea. Right here." He laughs, loud, teasing. "Whoa… okay, I see the tea. The hottest tea of the year." I roll my eyes, but I grin too. "Be careful… sip too much and you might burn yourself." He leans a little closer, smirk still in place. "I think I can handle it. I'm a professional at tasting tea."
+
+We laugh, playful, cheesy, ridiculous. His curls bounce as he leans back, still smiling. The tension's there, but also… fun. Hot and chaotic.
+
+I lean back on the bed, smirking. "Okay your turn. Suggest something." He grins, eyes sparkling. "Ohhh I know exactly what I'd suggest." Leans closer. "Maybe you, me, this bed and a little chaos?" I laugh, rolling my eyes, but my face is pink. "Wow, that's… so original. Really creative, you know?" He nudges me with his shoulder, playful. "Hey, don't act innocent. I can see that tiny smirk. You know you want a little chaos too."
+
+We grab a potato. Just one. Both of us holding it. He smirks. "Ready for some teamwork?" I laugh, heart racing. "Teamwork? Oh, it's teamwork now?" He leans closer. One end of the potato on his mouth. The other on mine. We start eating it. Slowly. Laughing. Messy. Our lips almost meet through it. Our breaths mix. I can feel him smiling against it. Cheesy? Totally. Hot? Absolutely.
+
+He whispers, between bites, teasingly, "You know if the potato's this good, imagine what else we could share." I choke on a laugh, cheeks pink. "Stop… you're ridiculous!" He grins, eyes sparkling, "Ridiculous…. but delicious. Just like you."
+
+Okay, this kiss — oh my god, it's perfect. Cheesy. Literally dripping with cheese and sauce. So messy. So hot. He bites, licking the cheese off. Eyes on me. "You're so… cheesy," he says. I blink, laughing. "Cheesy? Really?" He grins, leaning closer, whispering. "No like your lips. Juicy. Delicious. Like this potato. Can't resist." We laugh. Cheese on our lips, sauce on our fingers. Messy. Playful. Sexy. And I… I love every second of it.
+
+I take another slice of cheesecake, sighing. "Okay — no, please," I say, holding it up. "I want to eat it, so don't make me spill." He laughs, that ridiculous, teasing grin spreading across his face. "Ohhhhh look at you, telling me not to make you spill and here you are, spilling anyway!" I glare at him, playful, but can't hide my blush. "Shut up." I try to take a bite, but the cheesecake is slippery. It drops right onto my chest and lap. Perfect chaos. He leans closer, smirking, eyes sparkling. "Ohhh looks like someone needs a little help." And before I can protest, he's leaning down, licking the cream off me. Slow, careful, teasing — almost like he's enjoying it more than I am. I shiver. "You're insane," I murmur, laughing, heart racing. He smirks up at me, shrugging like it's the most normal thing in the world. "Insane? Maybe. Helpful? Definitely."
+
+He kept touching me, slowly, carefully, like he wanted to memorize every part of me with his hands. His fingers traced me — my waist, my back, my hips — like he was trying to hold the entire moment in his palms. Then he wrapped his arms around me, tight. So tight I could feel him — his warmth, his breath, his heartbeat, everything pressing into me.
+
+I looked up at him, half laughing, half breathless. "Wooow you're all covered in cheesecake," I tease. "But actually you look so messy and dirty. You should take that off." He smirks, lowering his voice. "Oh yeah? Make me." I freeze for a second. He knows I'm shy. He loves it. Then he leans closer, his lips almost touching mine, whispering: "Come on. If you want me clean — make me clean." I roll my eyes, trying to look confident. "Fine," I say, even though my hands are shaking. "If you insist." He grins — slow, dangerous, teasing. "I do insist."
+
+I start helping him out of it, fumbling, nervous, but trying to look composed. He watches me the whole time, quietly, intensely — like he's savoring every second. And damn — I froze. His body… perfect. Muscles in his arms, strong but smooth, like they were made to hold me. The lines of his chest, the curve of his shoulders, the way everything fit together — it was perfection.
+
+I couldn't resist. Not for a second. I leaned in, softly at first. Kissing his chest, tracing the muscles with my lips, little pecks that felt electric. His arms — I wrapped my hands around them, pressing closer, feeling the warmth, the strength. Every touch made my heart race. He chuckled softly, low and warm. "Already attacking, huh?" I smiled, cheeks pink, breathing fast. "Can't help it twin hh you're too… perfect."
+
+I sat back against him, breathing hard, just looking. God, he was so effortlessly hot like that — just sitting there, lips a little swollen, chest rising slowly, eyes half-lidded. It was unfair. Completely unfair. I shifted forward, knees sinking into the sheets, and I climbed right onto his lap. He let out a soft, surprised laugh, hands automatically sliding to my waist. I cupped his face, looked at him for one tiny moment, and then I kissed him.
+
+And the kiss — God, it was sloppy. Warm, messy, hungry. Our mouths moved like we'd both been holding this in too long, like we were starving for each other. His lips were soft and hot and kept parting against mine, making little sounds that only pulled me closer. His hands tightened on my waist, pulling me harder against him, deepening the kiss until I could barely breathe. But I didn't care. I didn't want to stop. It felt like the whole world melted around us — just heat, breath, and that deliciously messy kiss.
+
+"Bilal" — I breathed his name like it was my salvation. In a way, it was.
+
+The ten minutes felt like heaven. We were tangled together on the bed — my head on his chest, his arm wrapped under me like he was locking me into him. His skin was still warm, the kind of warm that makes you melt instead of move. He kept tracing slow little circles on my back with his fingertips — so light it made me shiver. Every now and then he'd kiss the top of my head, or my forehead, or the side of my face — like he couldn't keep his mouth still. I could hear his heartbeat — calm, steady, like he wasn't the same man who tried to kill me with passion ten minutes ago.
+
+His other hand rested on my hip lazily, thumb brushing up and down, soft, soft, soft. I slipped away for a second just to put on my socks — don't ask me why, it just felt right — then curled right back into him, letting the quiet settle over us.
+
+"Okay," he murmured, voice low, playful, dangerous. "Time." My eyes opened instantly. "Time… for what?" I asked, even though I already knew. He smirked, that slow devil smirk. "You know exactly for what." I swallowed. "Oh no." "Oh yes."
+
+When he finally dropped back onto my bed, breathing hard like he'd just run a marathon, I propped myself up on my elbow and stared at him with the most dramatic smirk. "Oh wow," I said, my voice full of fake sympathy. "You talk sooo much, and then you get tired in, what… three minutes?"
+
+"ROUND WHAT?!" My voice cracked like a dying bird. He laughed — that low warm laugh that always means trouble — and scooted closer like a menace. I immediately backed up like a scared cat, clutching the blanket to my chest. "No. No no no. Stay right there. Don't even breathe in my direction. I'm fragile. I'm shaking. I'm ONE tap away from passing out."
+
+He grinned even wider. "Aww… look at you. Scared. Cute." "I'm not cute, I'm TRAUMATIZED." He leaned over me, teasing, brushing my hair off my forehead. "Come on," he said, voice soft but evil. "I'll be gentle." "YOU SAID THAT BEFORE AND YOU LIED."
+
+He laughed so hard he fell on his back again, hand over his face. "Okay, okay fine," he said. "We'll rest… five minutes." "NO." "TEN." "NO. FORTY." He raised an eyebrow. "Forty? Girl, by forty minutes I'll be starving again." I threw a pillow at him.
+
+By the time the clock hit almost 1 a.m., I could barely believe how many rounds we'd had. My body was sore, my hair a mess, and honestly… so was he. I flopped back onto the bed, laughing breathlessly. "Look at this mess," I said, nodding at the tangled sheets. "We're like a hurricane." He grinned, brushing a strand of hair from his forehead. "Yeah and you're the storm I didn't see coming."
+
+I nudged him playfully. "Careful, baby, or I might start charging for cleanup." "Oh really?" he said, smirking. "I think I can pay in other ways." I rolled my eyes, giggling, and crawled into his arms. We curled up together, tangled in blankets and warmth, still laughing quietly, still teasing each other softly. And then slowly, we drifted off, the room quiet except for our steady, matching breaths.
+
+Morning light slipped through the curtains, warm and soft. I stirred first, glancing at him. "Hey" I whispered, my voice still sleepy. He yawned, stretched, and blinked at me. "Morning… you're way too cute when you just wake up." I giggled, poking his side lightly. "Oh, really? And you're the handsome guy who kept me up all night." He laughed softly, nuzzling closer for a second. "Guilty as charged."
+
+I pushed myself up, grabbing my robe. "Okay time to face the day." At the door, I turned back to him, kissed him quick and sweet. "Bye-bye." He smirked, leaning in for one last peck. "bye, twin." And just like that, I let him go, smiling all the way down the hall.
+
+Dear reader, I guess we've finally reached the end of the story — maybe even the end of the whole series. It's been years writing about him, years letting him slip in and out of my life — years of moments that were hot, fun, stupid, messy, unforgettable. But everything has an end.
+
+I always wanted this. I'm not being dramatic. I'm just telling you what I've always wanted and how I wanted it to end. We had our fun, hot moments. But it has to end.
+
+I dreamed of this day from the moment he came back after our first time in bed — it has to end somewhere. I can't stay my whole life as a side-chick — not even his friend — maybe just a sex toy he picked up when he felt lonely. He was nice sometimes, and God knows I loved the moments, but that doesn't make it real.
+
+We had our little adventures — twice in bed, a cute picnic, silly flirting, stupid fights, and the whole "my room fantasy" he always dreamed about. I guess that's enough material for a lifetime of chapters.
+
+One day he was just going to end it anyway, leave without looking back, and maybe I would have cried. So at least this time — I chose myself first. My peace, my heart. Before he could ghost me again or say something cruel the way he always did.
+
+He keeps saying I'm dramatic. But I swear I'm not. I'm just me — and he never liked me enough to see that. I made my mistakes, and I'm sorry for them. But he did worse. At least I cared. He never did.
+
+So dear reader, this is truly my last book about him. I blocked him everywhere. The only thing left was his Instagram, and now that's gone too. He can't reach me anymore. And that's all I ever wanted.
+
+I tried this once before, back in September 2025 — I thought I could block him, walk away — but he came back, and I let him. This time, it's different. This time, it's real. I won't look back. An ending I chose.
+
+The end.</div>
+    </div>
+
+    <!-- NOVEL 3 -->
+    <div class="card empty" onclick="open_novel(this)"
+      data-genre="Romance"
+      data-title="Novel 3"
+      data-desc="">
+      <div class="c-top"><span>🌙</span><span class="c-num">3</span></div>
+      <div class="c-body">
+        <div class="c-genre">Romance</div>
+        <div class="c-title">Novel 3</div>
+        <div class="c-empty-label">coming soon…</div>
+      </div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 4 -->
+    <div class="card empty" onclick="open_novel(this)"
+      data-genre="Romance"
+      data-title="Novel 4"
+      data-desc="">
+      <div class="c-top"><span>✉️</span><span class="c-num">4</span></div>
+      <div class="c-body">
+        <div class="c-genre">Romance</div>
+        <div class="c-title">Novel 4</div>
+        <div class="c-empty-label">coming soon…</div>
+      </div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 5 -->
+    <div class="card empty" onclick="open_novel(this)"
+      data-genre="Romance"
+      data-title="Novel 5"
+      data-desc="">
+      <div class="c-top"><span>🕯️</span><span class="c-num">5</span></div>
+      <div class="c-body">
+        <div class="c-genre">Romance</div>
+        <div class="c-title">Novel 5</div>
+        <div class="c-empty-label">coming soon…</div>
+      </div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 6 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 6" data-desc="">
+      <div class="c-top"><span>💌</span><span class="c-num">6</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 6</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 7 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 7" data-desc="">
+      <div class="c-top"><span>🫀</span><span class="c-num">7</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 7</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 8 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 8" data-desc="">
+      <div class="c-top"><span>🌸</span><span class="c-num">8</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 8</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 9 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 9" data-desc="">
+      <div class="c-top"><span>⭐</span><span class="c-num">9</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 9</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 10 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 10" data-desc="">
+      <div class="c-top"><span>🥀</span><span class="c-num">10</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 10</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 11 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 11" data-desc="">
+      <div class="c-top"><span>🌹</span><span class="c-num">11</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 11</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 12 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 12" data-desc="">
+      <div class="c-top"><span>🌷</span><span class="c-num">12</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 12</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 13 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 13" data-desc="">
+      <div class="c-top"><span>🌙</span><span class="c-num">13</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 13</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 14 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 14" data-desc="">
+      <div class="c-top"><span>✉️</span><span class="c-num">14</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 14</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 15 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 15" data-desc="">
+      <div class="c-top"><span>🕯️</span><span class="c-num">15</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 15</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 16 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 16" data-desc="">
+      <div class="c-top"><span>💌</span><span class="c-num">16</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 16</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 17 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 17" data-desc="">
+      <div class="c-top"><span>🫀</span><span class="c-num">17</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 17</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 18 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 18" data-desc="">
+      <div class="c-top"><span>🌸</span><span class="c-num">18</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 18</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 19 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 19" data-desc="">
+      <div class="c-top"><span>⭐</span><span class="c-num">19</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 19</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 20 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 20" data-desc="">
+      <div class="c-top"><span>🥀</span><span class="c-num">20</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 20</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 21 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 21" data-desc="">
+      <div class="c-top"><span>🌹</span><span class="c-num">21</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 21</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 22 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 22" data-desc="">
+      <div class="c-top"><span>🌷</span><span class="c-num">22</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 22</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 23 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 23" data-desc="">
+      <div class="c-top"><span>🌙</span><span class="c-num">23</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 23</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 24 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 24" data-desc="">
+      <div class="c-top"><span>✉️</span><span class="c-num">24</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 24</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 25 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 25" data-desc="">
+      <div class="c-top"><span>🕯️</span><span class="c-num">25</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 25</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 26 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 26" data-desc="">
+      <div class="c-top"><span>💌</span><span class="c-num">26</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 26</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 27 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 27" data-desc="">
+      <div class="c-top"><span>🫀</span><span class="c-num">27</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 27</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 28 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 28" data-desc="">
+      <div class="c-top"><span>🌸</span><span class="c-num">28</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 28</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 29 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 29" data-desc="">
+      <div class="c-top"><span>⭐</span><span class="c-num">29</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 29</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 30 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 30" data-desc="">
+      <div class="c-top"><span>🥀</span><span class="c-num">30</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 30</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 31 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 31" data-desc="">
+      <div class="c-top"><span>🌹</span><span class="c-num">31</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 31</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 32 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 32" data-desc="">
+      <div class="c-top"><span>🌷</span><span class="c-num">32</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 32</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 33 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 33" data-desc="">
+      <div class="c-top"><span>🌙</span><span class="c-num">33</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 33</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 34 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 34" data-desc="">
+      <div class="c-top"><span>✉️</span><span class="c-num">34</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 34</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 35 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 35" data-desc="">
+      <div class="c-top"><span>🕯️</span><span class="c-num">35</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 35</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 36 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 36" data-desc="">
+      <div class="c-top"><span>💌</span><span class="c-num">36</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 36</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 37 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 37" data-desc="">
+      <div class="c-top"><span>🫀</span><span class="c-num">37</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 37</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 38 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 38" data-desc="">
+      <div class="c-top"><span>🌸</span><span class="c-num">38</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 38</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 39 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 39" data-desc="">
+      <div class="c-top"><span>⭐</span><span class="c-num">39</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 39</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 40 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 40" data-desc="">
+      <div class="c-top"><span>🥀</span><span class="c-num">40</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 40</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 41 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 41" data-desc="">
+      <div class="c-top"><span>🌹</span><span class="c-num">41</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 41</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 42 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 42" data-desc="">
+      <div class="c-top"><span>🌷</span><span class="c-num">42</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 42</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 43 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 43" data-desc="">
+      <div class="c-top"><span>🌙</span><span class="c-num">43</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 43</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 44 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 44" data-desc="">
+      <div class="c-top"><span>✉️</span><span class="c-num">44</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 44</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 45 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 45" data-desc="">
+      <div class="c-top"><span>🕯️</span><span class="c-num">45</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 45</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 46 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 46" data-desc="">
+      <div class="c-top"><span>💌</span><span class="c-num">46</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 46</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 47 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 47" data-desc="">
+      <div class="c-top"><span>🫀</span><span class="c-num">47</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 47</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 48 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 48" data-desc="">
+      <div class="c-top"><span>🌸</span><span class="c-num">48</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 48</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 49 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 49" data-desc="">
+      <div class="c-top"><span>⭐</span><span class="c-num">49</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 49</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+    <!-- NOVEL 50 -->
+    <div class="card empty" onclick="open_novel(this)" data-genre="Romance" data-title="Novel 50" data-desc="">
+      <div class="c-top"><span>🥀</span><span class="c-num">50</span></div>
+      <div class="c-body"><div class="c-genre">Romance</div><div class="c-title">Novel 50</div><div class="c-empty-label">coming soon…</div></div>
+      <div class="novel-text" style="display:none"></div>
+    </div>
+
+  </div><!-- end grid -->
+</div><!-- end section -->
+
+<!-- READER -->
+<div class="reader" id="reader">
+
+  <!-- top bar -->
+  <div class="reader-topbar">
+    <button class="r-back" onclick="closeReader()">← Back</button>
+    <div class="r-topinfo">
+      <span id="rTopGenre"></span>
+      <span class="r-topdot">·</span>
+      <span id="rTopTitle"></span>
+    </div>
+    <div class="r-pagecount" id="rPageCount"></div>
+  </div>
+
+  <!-- cover page (page 0) -->
+  <div class="book-page" id="coverPage">
+    <div class="cover-inner">
+      <div class="cover-genre" id="coverGenre"></div>
+      <h1 class="cover-title" id="coverTitle"></h1>
+      <div class="cover-rule"></div>
+      <p class="cover-desc" id="coverDesc"></p>
+      <button class="cover-start" onclick="goToPage(1)">Begin Reading →</button>
+    </div>
+  </div>
+
+  <!-- text pages -->
+  <div class="book-page text-page" id="textPage" style="display:none">
+    <div class="page-content" id="pageContent"></div>
+    <div class="page-nav">
+      <button class="nav-btn" id="prevBtn" onclick="changePage(-1)">← Previous</button>
+      <div class="page-num" id="pageNum"></div>
+      <button class="nav-btn" id="nextBtn" onclick="changePage(1)">Next →</button>
+    </div>
+  </div>
+
+</div>
+
+<footer><p>© Douae — all writing is mine</p></footer>
+
+<style>
+/* ── READER OVERHAUL ── */
+.reader{
+  display:none;position:fixed;inset:0;
+  background:#fdfcfb;z-index:100;
+  flex-direction:column;
+}
+.reader.open{display:flex;animation:up 0.4s ease;}
+
+/* top bar */
+.reader-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 32px;
+  border-bottom:1px solid var(--border);
+  background:#fff;
+  flex-shrink:0;
+}
+.r-back{
+  font-family:var(--sans);font-size:0.72rem;font-weight:500;
+  letter-spacing:0.1em;color:var(--muted);cursor:pointer;
+  background:none;border:none;transition:color 0.2s;white-space:nowrap;
+}
+.r-back:hover{color:var(--pink);}
+.r-topinfo{
+  font-family:var(--sans);font-size:0.7rem;
+  color:var(--muted);letter-spacing:0.05em;
+  text-align:center;
+}
+.r-topdot{margin:0 6px;color:var(--border);}
+.r-pagecount{
+  font-family:var(--sans);font-size:0.68rem;
+  color:var(--muted);white-space:nowrap;
+  min-width:80px;text-align:right;
+}
+
+/* shared page */
+.book-page{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:40px 24px 24px;
+  overflow:hidden;
+}
+
+/* COVER PAGE */
+.cover-inner{
+  max-width:560px;
+  width:100%;
+  text-align:center;
+}
+.cover-genre{
+  font-family:var(--sans);font-size:0.62rem;font-weight:500;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--pink);margin-bottom:14px;
+}
+.cover-title{
+  font-family:var(--serif);font-size:clamp(2.4rem,6vw,4rem);
+  font-weight:900;color:var(--ink);line-height:1.05;
+  margin-bottom:20px;
+}
+.cover-rule{
+  width:44px;height:3px;background:var(--pink);
+  border-radius:2px;margin:0 auto 20px;
+}
+.cover-desc{
+  font-family:var(--serif);font-style:italic;font-size:1.05rem;
+  color:var(--sub);line-height:1.8;margin-bottom:36px;
+  max-width:420px;margin-left:auto;margin-right:auto;
+}
+.cover-start{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--pink);color:white;border:none;
+  padding:13px 32px;border-radius:50px;
+  font-family:var(--sans);font-size:0.82rem;font-weight:500;
+  cursor:pointer;transition:background 0.2s,transform 0.15s;
+  letter-spacing:0.03em;
+}
+.cover-start:hover{background:var(--pink2);transform:scale(1.03);}
+
+/* TEXT PAGE */
+.text-page{justify-content:space-between;padding:32px 24px 20px;}
+
+.page-content{
+  max-width:660px;
+  width:100%;
+  flex:1;
+  overflow-y:auto;
+  /* paper feel */
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:52px 60px;
+  box-shadow:0 4px 24px rgba(247,37,133,0.06), 2px 2px 0 var(--border);
+  font-family:var(--serif);
+  font-size:1.08rem;
+  line-height:2;
+  color:#2a1520;
+  text-align:left;
+  position:relative;
+}
+
+.page-content p{
+  margin-bottom:1.4em;
+  text-indent:2em;
+}
+.page-content p:first-child{
+  text-indent:0;
+}
+.page-content p:first-child::first-letter{
+  font-size:3.6rem;
+  font-weight:900;
+  color:var(--pink);
+  float:left;
+  line-height:0.8;
+  margin-right:8px;
+  margin-top:6px;
+}
+
+/* page nav */
+.page-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  max-width:660px;
+  width:100%;
+  padding:16px 0 4px;
+}
+.nav-btn{
+  font-family:var(--sans);font-size:0.72rem;font-weight:500;
+  letter-spacing:0.1em;color:var(--pink);
+  background:none;border:1px solid var(--border);
+  padding:9px 20px;border-radius:50px;cursor:pointer;
+  transition:background 0.2s,color 0.2s;
+}
+.nav-btn:hover{background:var(--pink);color:white;border-color:var(--pink);}
+.nav-btn:disabled{color:var(--border);cursor:default;border-color:var(--border);}
+.nav-btn:disabled:hover{background:none;color:var(--border);}
+.page-num{
+  font-family:var(--serif);font-style:italic;
+  font-size:0.88rem;color:var(--muted);
+}
+
+@media(max-width:600px){
+  .page-content{padding:28px 22px;}
+  .reader-topbar{padding:12px 16px;}
+  .page-content{font-size:0.98rem;}
+}
+</style>
+
+<script>
+// ── how many paragraphs per page ──
+const PARAS_PER_PAGE = 12;
+
+let allPages = [];   // array of arrays of <p> html strings
+let currentPage = 0; // 0 = cover
+
+function open_novel(card){
+  const genre = card.getAttribute('data-genre') || '';
+  const title = card.getAttribute('data-title') || '';
+  const desc  = card.getAttribute('data-desc')  || '';
+  const raw   = card.querySelector('.novel-text').innerHTML.trim();
+
+  // fill cover
+  document.getElementById('coverGenre').textContent = genre;
+  document.getElementById('coverTitle').textContent = title;
+  document.getElementById('coverDesc').textContent  = desc;
+  document.getElementById('rTopGenre').textContent  = genre;
+  document.getElementById('rTopTitle').textContent  = title;
+
+  // split into paragraphs
+  const paras = raw
+    ? raw.split(/\n\n+/)
+        .map(p => p.replace(/\n/g,'<br>').trim())
+        .filter(p => p.length > 0)
+        .map(p => `<p>${p}</p>`)
+    : [];
+
+  // chunk into pages
+  allPages = [];
+  for(let i = 0; i < paras.length; i += PARAS_PER_PAGE){
+    allPages.push(paras.slice(i, i + PARAS_PER_PAGE));
+  }
+
+  updatePageCount();
+  goToCover();
+  document.getElementById('reader').classList.add('open');
+  window.scrollTo(0,0);
+}
+
+function goToCover(){
+  currentPage = 0;
+  document.getElementById('coverPage').style.display = 'flex';
+  document.getElementById('textPage').style.display  = 'none';
+  updatePageCount();
+}
+
+function goToPage(n){
+  if(allPages.length === 0) return;
+  currentPage = Math.max(1, Math.min(n, allPages.length));
+  document.getElementById('coverPage').style.display = 'none';
+  document.getElementById('textPage').style.display  = 'flex';
+  renderPage();
+}
+
+function renderPage(){
+  const content = document.getElementById('pageContent');
+  const pageData = allPages[currentPage - 1];
+  content.innerHTML = pageData ? pageData.join('') : '<p style="font-style:italic;color:var(--muted);text-indent:0">The end.</p>';
+
+  document.getElementById('pageNum').textContent = `Page ${currentPage} of ${allPages.length}`;
+  document.getElementById('prevBtn').disabled = currentPage <= 1;
+  document.getElementById('nextBtn').disabled = currentPage >= allPages.length;
+  updatePageCount();
+  window.scrollTo(0,0);
+}
+
+function changePage(dir){
+  if(dir === -1 && currentPage === 1){ goToCover(); return; }
+  goToPage(currentPage + dir);
+}
+
+function updatePageCount(){
+  const el = document.getElementById('rPageCount');
+  if(allPages.length === 0){ el.textContent = ''; return; }
+  if(currentPage === 0){ el.textContent = `${allPages.length} pages`; }
+  else { el.textContent = `${currentPage} / ${allPages.length}`; }
+}
+
+function closeReader(){
+  document.getElementById('reader').classList.remove('open');
+  allPages = [];
+  currentPage = 0;
+}
+</script>
+</body>
+</html>
